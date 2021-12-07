@@ -2,9 +2,11 @@
 using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.JsonPatch;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -48,15 +50,15 @@ namespace eCommerceStarterCode.Controllers
         }
 
         // PUT api/videogames/2
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id,[FromBody] string value)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] VideoGame value)
         {
-            var videoGame = _context.VideoGames.Where(_vg => _vg.Id == id).SingleOrDefault();
-            videoGame = value;
+            var videoGame = _context.VideoGames.Where(_vg => _vg.Id == id).Include(u => u.User).SingleOrDefault();
+            
+            _context.VideoGames.Update(value);
 
-            _context.VideoGames.Update(videoGame);
             _context.SaveChanges();
-            return Ok(value);
+            return Ok(videoGame);
         }
 
         // DELETE api/<VideoGamesController>/5
