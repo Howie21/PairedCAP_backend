@@ -55,7 +55,7 @@ namespace eCommerceStarterCode.Controllers
             return Ok(value);
         }
 
-        // DELETE api/shoppingcart/5
+        // DELETE api/shoppingcart/[UniqueShoppingCartID]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

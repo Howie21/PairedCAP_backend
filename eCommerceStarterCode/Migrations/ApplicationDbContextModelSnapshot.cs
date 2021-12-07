@@ -168,8 +168,10 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.Review", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -177,10 +179,15 @@ namespace eCommerceStarterCode.Migrations
                     b.Property<string>("ReviewChar")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("VideoGameId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VideoGameId");
 
@@ -373,9 +380,7 @@ namespace eCommerceStarterCode.Migrations
                 {
                     b.HasOne("eCommerceStarterCode.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.HasOne("eCommerceStarterCode.Models.VideoGame", "VideoGame")
                         .WithMany()
