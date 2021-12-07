@@ -3,16 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eCommerceStarterCode.Models
 {
-    public class Review
+    public class ShoppingCart
     {
         [Key]
         [ForeignKey("User")]
         public string UserId { get; set; }
         public User User { get; set; }
+
         [ForeignKey("VideoGame")]
-        public int VideoGameId { get; set; }
+        public int ProductId { get; set; }
         public VideoGame VideoGame { get; set; }
-        public int Rating { get; set; }
-        public string ReviewChar { get; set; }
+
+        public int Quantity { get; set; }
+
+
     }
 }
