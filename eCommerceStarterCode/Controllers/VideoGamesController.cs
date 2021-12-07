@@ -52,13 +52,12 @@ namespace eCommerceStarterCode.Controllers
         // PUT api/videogames/2
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] VideoGame value)
-        {
-            var videoGame = _context.VideoGames.Where(_vg => _vg.Id == id).Include(u => u.User).SingleOrDefault();
+        { 
             
             _context.VideoGames.Update(value);
 
             _context.SaveChanges();
-            return Ok(videoGame);
+            return Ok(value);
         }
 
         // DELETE api/<VideoGamesController>/5
